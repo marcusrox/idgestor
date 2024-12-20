@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,6 +52,11 @@ class User extends Authenticatable
         ];
     }
 
+    # Para o Filament, caso contrário, não será possível acessar o painel administrativo
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@idevs.com.br') && $this->hasVerifiedEmail();
+    }
 
     public function accesses()
     {
@@ -67,6 +74,11 @@ class User extends Authenticatable
     //         'user_agent' => $request->server('HTTP_USER_AGENT'),
     //     ]);
     // }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url;
+    }
 
     public function isComprador()
     {

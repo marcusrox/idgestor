@@ -17,7 +17,7 @@ class CreateCompradoresTable extends Migration
             $table->string('nome');
             $table->string('razao_social');
             $table->string('telefone');
-            $table->foreignId('users_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

@@ -5,13 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Comprador;
 
-class CompradorTableSeeder extends Seeder {
+class CompradorTableSeeder extends Seeder
+{
 
-	public function run()
-	{
-		//DB::table('vendedores')->delete();
+    public function run()
+    {
+        //DB::table('vendedores')->delete();
 
-		Comprador::create(array(
+        Comprador::firstOrCreate(array(
             'cpf_cnpj' => '913.150.720-41',
             'nome' => 'Mário Comprador da Silva',
             'razao_social' => 'Mário Comprador da Silva',
@@ -22,7 +23,7 @@ class CompradorTableSeeder extends Seeder {
             'updated_by' => 1,
         ));
 
-		Comprador::create(array(
+        Comprador::firstOrCreate(array(
             'cpf_cnpj' => '222.222.222-22',
             'nome' => 'Jorge Comprador da Silva',
             'razao_social' => 'Jorge Comprador da Silva',
@@ -31,7 +32,6 @@ class CompradorTableSeeder extends Seeder {
             'user_id' => '4',
             'created_by' => 1,
             'updated_by' => 1,
-        ));        
-            
-	}
+        ));
+    }
 }

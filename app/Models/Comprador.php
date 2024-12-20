@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Comprador extends BaseModel 
+class Comprador extends BaseModel
 {
 
     protected $table = 'compradores';
@@ -20,14 +20,14 @@ class Comprador extends BaseModel
         ];
     }
 
-    // Atributos que serao mostrados no form show
-    public $attrShow = [
-        'id' => 'ID',
-        'cpf_cnpj' => 'CPF/CNPJ',
-        'nome' => 'Nome Fantasia',
-        'razao_social' => 'Razão Social',
-        'telefone' => 'Telefone',
-    ];
+    // // Atributos que serao mostrados no form show
+    // public $attrShow = [
+    //     'id' => 'ID',
+    //     'cpf_cnpj' => 'CPF/CNPJ',
+    //     'nome' => 'Nome Fantasia',
+    //     'razao_social' => 'Razão Social',
+    //     'telefone' => 'Telefone',
+    // ];
 
     protected $fillable = ['cpf_cnpj', 'nome', 'razao_social', 'tipo_pessoa', 'telefone', 'user_id'];
 
@@ -40,5 +40,4 @@ class Comprador extends BaseModel
     {
         return $this->belongsTo('App\Models\User');
     }
-
 }
