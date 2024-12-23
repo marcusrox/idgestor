@@ -23,6 +23,7 @@ class VendedorResource extends Resource
     protected static ?string $navigationGroup = "Cadastros";
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
     protected static ?string $navigationLabel = 'Vendedores';
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $label = "vendedor";
     protected static ?string $pluralLabel = "vendedores";

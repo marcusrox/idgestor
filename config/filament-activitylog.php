@@ -2,12 +2,12 @@
 
 return [
     'resources' => [
-        'label'                  => 'Activity Log',
-        'plural_label'           => 'Activity Logs',
+        'label'                  => 'Auditoria',
+        'plural_label'           => 'Auditoria',
         'navigation_item'        => true,
-        'navigation_group'       => null,
+        'navigation_group'       => 'Sistema',
         'navigation_icon'        => 'heroicon-o-shield-check',
-        'navigation_sort'        => null,
+        'navigation_sort'        => 100,
         'default_sort_column'    => 'id',
         'default_sort_direction' => 'desc',
         'navigation_count_badge' => false,

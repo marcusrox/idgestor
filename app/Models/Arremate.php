@@ -2,13 +2,33 @@
 
 namespace App\Models;
 
-class Arremate extends BaseModel 
+use Illuminate\Validation\ValidationException;
+
+class Arremate extends BaseModel
 {
 
     protected $table = 'arremates';
     public $timestamps = true;
 
     protected $fillable = ['lote_id', 'forma_pagamento_id', 'comprador_id', 'dt_primeiro_pagamento', 'vl_parcela'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            $existe = Arremate::where('lote_id', $model->lote_id)
+                ->where('comprador_id', $model->comprador_id)
+                ->exists();
+
+            if ($existe) {
+                throw new \Exception('Este comprador já arrematou este lote.');
+                // throw ValidationException::withMessages([
+                //     'comprador_id' => 'Este comprador já arrematou este lote.',
+                // ]);
+            }
+        });
+    }
 
     // Os campos abaixo serão automaticamnte convertidos para Carbon pelo eloquent
     protected $dates = [
@@ -44,5 +64,4 @@ class Arremate extends BaseModel
             'dt_primeiro_pagamento' => 'required',
         ];
     }
-
 }

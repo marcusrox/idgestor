@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Support\Facades\Auth;
-use DB;
 use Spatie\Activitylog\LogOptions;
 
 trait BaseModelTrait
@@ -14,13 +11,13 @@ trait BaseModelTrait
     //use UserstampTrait;
 
     // Campos que serão logados por LogsActivity
-    protected static $logFillable = true;
-    protected static $logOnlyDirty = true;
+    // protected static $logFillable = true;
+    // protected static $logOnlyDirty = true;
 
-    public function hasAttribute($attr)
-    {
-        return array_key_exists($attr, $this->attributes);
-    }
+    // public function hasAttribute($attr)
+    // {
+    //     return array_key_exists($attr, $this->attributes);
+    // }
 
     // public function getTypeName($colName)
     // {
@@ -30,7 +27,7 @@ trait BaseModelTrait
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults();
+        return LogOptions::defaults()->logAll(); // Registra logs para todos os campos
     }
 
     /**

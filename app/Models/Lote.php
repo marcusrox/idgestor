@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Lote extends BaseModel 
+class Lote extends BaseModel
 {
 
     protected $table = 'lotes';
@@ -17,11 +17,11 @@ class Lote extends BaseModel
         ];
     }
 
-    // Atributos que serao mostrados no form show
-    public $attrShow = [
-        'id' => 'ID',
-        'nome' => 'Nome do Lote',
-    ];
+    // // Atributos que serao mostrados no form show
+    // public $attrShow = [
+    //     'id' => 'ID',
+    //     'nome' => 'Nome do Lote',
+    // ];
 
     protected $fillable = ['nome', 'vendedor_id', 'leilao_id'];
 
@@ -40,5 +40,4 @@ class Lote extends BaseModel
     {
         return $this->hasMany('App\Models\Arremate');
     }
-
 }

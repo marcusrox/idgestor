@@ -13,13 +13,15 @@ class CreateVendedor extends CreateRecord
 
     protected function getCreatedNotification(): ?Notification
     {
-
+        $recipient = \auth()->user();
+        //dd($recipient);
         return
             Notification::make()
             ->success()
+            ->seconds(30)
             ->title('Novo vendedor')
             ->body('O novo vendedor foi cadastrado com sucesso!')
-            ->sendToDatabase(\auth()->user());
+            ->sendToDatabase($recipient);
     }
 
     protected function getRedirectUrl(): string

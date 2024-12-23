@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+
 class Comprador extends BaseModel
 {
-
     protected $table = 'compradores';
     public $timestamps = true;
 

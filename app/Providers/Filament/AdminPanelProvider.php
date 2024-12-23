@@ -32,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/HorseBID-Logo1.png'))
             ->login()
             ->profile()
+            ->databaseNotifications()
             ->colors([
                 'primary' => Color::Amber,
             ])
