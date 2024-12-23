@@ -15,25 +15,37 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $u = User::firstOrCreate([
-            'name' => 'Suporte/Admin da Silva',
-            'email' => 'suporte@idevs.com.br',
-            'password' => bcrypt('12345678')
-        ]);
+        $u = User::updateOrCreate(
+            [
+                'email' => 'suporte@idevs.com.br'
+            ],
+            [
+                'name' => 'Suporte/Admin da Silva',
+                'password' => bcrypt('12345678')
+            ]
+        );
         //$u->assignRole("Administrador");
 
-        $u = User::firstOrCreate([
-            'name' => 'Lucas Vendedor da Silva',
-            'email' => 'lucas@idevs.com.br',
-            'password' => bcrypt('12345678')
-        ]);
+        $u = User::updateOrCreate(
+            [
+                'name' => 'Lucas Vendedor da Silva'
+            ],
+            [
+                'email' => 'lucas@idevs.com.br',
+                'password' => bcrypt('12345678')
+            ]
+        );
         //$u->assignRole("Vendedor");
 
-        $u = User::firstOrCreate([
-            'name' => 'Mário Comprador da Silva',
-            'email' => 'mario@idevs.com.br',
-            'password' => bcrypt('12345678')
-        ]);
+        $u = User::updateOrCreate(
+            [
+                'name' => 'Mário Comprador da Silva'
+            ],
+            [
+                'email' => 'mario@idevs.com.br',
+                'password' => bcrypt('12345678')
+            ]
+        );
         //$u->assignRole("Comprador");
 
         // Popular com dados fakes

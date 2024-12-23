@@ -54,9 +54,9 @@ class LoteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('ID'),
-                Tables\Columns\TextColumn::make('nome')->label('Nome do Lote'),
-                Tables\Columns\TextColumn::make('leilao.nome')->label('Leilão'),
+                Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
+                Tables\Columns\TextColumn::make('nome')->label('Nome do Lote')->searchable(),
+                Tables\Columns\TextColumn::make('leilao.nome')->label('Leilão')->searchable(),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('leilao')

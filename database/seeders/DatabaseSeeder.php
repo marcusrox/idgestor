@@ -27,11 +27,20 @@ class DatabaseSeeder extends Seeder
 
         // activity()->disableLogging();
 
-        User::factory()->create([
-            'name' => 'Marcus Moreira de Souza',
-            'email' => 'marcus@idevs.com.br',
-            'password' => Hash::make('12345678'),
-        ]);
+        $arr_user = array_merge(
+            User::factory()->raw(), // Dados gerados pela fábrica
+            [
+                // Dado personalizado
+                'name' => 'Marcus Moreira de Souza',
+                'email' => 'marcus@idevs.com.br',
+                'password' => Hash::make('12345678'),
+            ]
+        );
+
+        User::firstOrCreate(
+            ['email' => 'marcus@idevs.com.br'],
+            $arr_user // Gera os dados para criação
+        );
 
         //$this->call(RoleTableSeeder::class);
         //$this->command->info('Role table seeded!');

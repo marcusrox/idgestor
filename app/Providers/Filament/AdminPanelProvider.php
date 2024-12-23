@@ -30,9 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->brandName('HorseBID')
             ->brandLogo(asset('images/HorseBID-Logo1.png'))
+            ->brandLogoHeight('33px')
             ->login()
             ->profile()
             ->databaseNotifications()
+            ->favicon(asset('images/favicon-16x16.png'))
             ->colors([
                 'primary' => Color::Amber,
             ])
