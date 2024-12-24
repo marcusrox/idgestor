@@ -29,23 +29,22 @@ class ArrematesRelationManager extends RelationManager
                 Forms\Components\Select::make('comprador_id')
                     ->relationship('comprador', 'nome')
                     ->searchable()
-                    ->preload()
-                    ->required()
-                    ->rules([
-                        // fn(Get $get): Closure => function (string $attribute, $value, Closure $fail) use ($get) {
-                        //     $loteId = $get('lote_id'); // Pega o ID do lote enviado no formulário
-                        //     //$loteId = request()->input('lote_id'); // Obtém o valor do request
-                        //     //dd($record);
-                        //     $existe = Arremate::where('lote_id', $loteId)
-                        //         ->where('comprador_id', $value)
-                        //         ->exists();
+                    ->preload(),
+                //->rules(Arremate::rules()),
+                // ->rules([
+                //     fn(Get $get): Closure => function (string $attribute, $value, Closure $fail) use ($get) {
+                //         $loteId = $get('lote_id'); // Pega o ID do lote enviado no formulário
+                //         //$loteId = request()->input('lote_id'); // Obtém o valor do request
+                //         //dd($record);
+                //         $existe = Arremate::where('lote_id', $loteId)
+                //             ->where('comprador_id', $value)
+                //             ->exists();
 
-                        //     if ($existe) {
-                        //         $fail('Este comprador já arrematou este lote.');
-                        //     }
-                        // },
-                    ]),
-
+                //         if ($existe) {
+                //             $fail('Este comprador já arrematou este lote.');
+                //         }
+                //     },
+                // ]),
 
                 Forms\Components\TextInput::make('vl_parcela')
                     ->prefix('R$') // Adiciona o prefixo "R$"
@@ -73,18 +72,32 @@ class ArrematesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('comprador.nome')->label('Comprador'),
                 Tables\Columns\TextColumn::make('forma_pagamento.nome')->label('Forma de Pagamento'),
                 Tables\Columns\TextColumn::make('vl_parcela')->label('Valor da Parcela')->money('BRL'),
-                Tables\Columns\TextColumn::make('dt_primeiro_pagamento')->label('Data do Prim. Pgto'),
+                Tables\Columns\TextColumn::make('parcelas_count')
+                    ->label('Parcelas')
+                    ->counts('parcelas') // Agrega o relacionamento
+                    ->sortable(), // Permite ordenar por quantidade
+                //Tables\Columns\TextColumn::make('dt_primeiro_pagamento')->label('Data do Prim. Pgto'),
 
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->label('Adicionar Arremate'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('gerar_parcelas')
+                    ->label('Gerar Parcelas')
+                    ->icon('heroicon-o-chart-bar')
+                    ->action(function ($record) {
+                        // Lógica para gerar as parcelas
+                        $record->gerarParcelas();
+                        //dd($record->toArray());
+                    })
+                    ->requiresConfirmation()
+                    ->color('success'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

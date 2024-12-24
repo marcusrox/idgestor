@@ -7,6 +7,7 @@ use App\Filament\Resources\LoteResource\RelationManagers;
 use App\Models\Lote;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -25,6 +26,7 @@ class LoteResource extends Resource
 
     protected static ?string $label = "lote";
     protected static ?string $pluralLabel = "lotes";
+    //protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Form $form): Form
     {
@@ -72,6 +74,15 @@ class LoteResource extends Resource
                 ]),
             ]);
     }
+
+    // public static function getRecordSubNavigation(Page $page): array
+    // {
+    //     return $page->generateNavigationItems([
+    //         //Pages\ViewPost::class,
+    //         Pages\EditLote::class,
+    //         Pages\ManageLoteArremates::class,
+    //     ]);
+    // }
 
     public static function getRelations(): array
     {
