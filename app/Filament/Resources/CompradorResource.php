@@ -81,6 +81,12 @@ class CompradorResource extends Resource
                 Tables\Columns\TextColumn::make('telefone')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y H:i:s')
+                    ->label('Criado em')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime('d/m/Y H:i:s')
+                    ->label('Atualizado em')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])

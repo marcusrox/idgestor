@@ -5,19 +5,7 @@ namespace App\Models;
 class Permission extends BaseModel
 {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'label'];
-
-    // Atributos que serao mostrados no form show
-    public $attrShow = [
-        'id' => 'ID',
-        'name' => 'Nome',
-        'label' => 'Etiqueta',
-    ];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     /**
      * A permission can be applied to roles.
@@ -28,5 +16,4 @@ class Permission extends BaseModel
     {
         return $this->belongsToMany(Role::class);
     }
-
 }
