@@ -27,7 +27,9 @@ trait BaseModelTrait
 
     public function getActivitylogOptions(): LogOptions
     {
-        return LogOptions::defaults()->logAll(); // Registra logs para todos os campos
+        return LogOptions::defaults()
+            ->logAll(); // Registra logs para todos os campos
+        //->logOnlyDirty(); // Registra logs apenas para campos alterados
     }
 
     /**

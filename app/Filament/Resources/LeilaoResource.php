@@ -73,13 +73,29 @@ class LeilaoResource extends Resource
         $user = Auth::user();
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->searchable()->sortable()->label('ID'),
-                Tables\Columns\TextColumn::make('nome')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('nome_organizador')->searchable()->sortable()->label('Organizador'),
+                Tables\Columns\TextColumn::make('id')
+                    ->searchable()
+                    ->sortable()
+                    ->label('ID'),
+                Tables\Columns\TextColumn::make('nome')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nome_organizador')
+                    ->searchable()
+                    ->sortable()
+                    ->label('Organizador'),
                 //Tables\Columns\TextColumn::make('lotes')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('lotes_count')->counts('lotes')->sortable(),
+                Tables\Columns\TextColumn::make('lotes_count')
+                    ->counts('lotes')
+                    ->sortable()->label('Lotes'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y H:i:s')
+                    ->label('Criado em')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime('d/m/Y H:i:s')
+                    ->label('Atualizado em')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
