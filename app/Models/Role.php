@@ -5,19 +5,14 @@ namespace App\Models;
 class Role extends BaseModel
 {
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'label'];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     // Atributos que serao mostrados no form show
-    public $attrShow = [
-        'id' => 'ID',
-        'name' => 'Nome',
-        'label' => 'Etiqueta',
-    ];
+    // public $attrShow = [
+    //     'id' => 'ID',
+    //     'name' => 'Nome',
+    //     'label' => 'Etiqueta',
+    // ];
 
     /**
      * A role may be given various permissions.

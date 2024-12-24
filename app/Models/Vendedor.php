@@ -4,9 +4,9 @@ namespace App\Models;
 
 class Vendedor extends BaseModel
 {
+    use UserstampTrait;
 
     protected $table = 'vendedores';
-    public $timestamps = true;
 
     // // Atributos que serao mostrados no form show
     // public $attrShow = [
@@ -17,19 +17,19 @@ class Vendedor extends BaseModel
     //     'telefone' => 'Telefone',
     // ];
 
-    protected $fillable = ['cpf_cnpj', 'nome', 'razao_social', 'tipo_pessoa', 'telefone', 'user_id'];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
-    public function rules()
-    {
-        return [
-            'cpf_cnpj' => 'required|unique:vendedores,cpf_cnpj,' . $this->id,
-            'nome' => 'required',
-            'razao_social' => 'required',
-            'tipo_pessoa' => 'required',
-            'telefone' => 'required',
-            'user_id' => 'required',
-        ];
-    }
+    // public function rules()
+    // {
+    //     return [
+    //         'cpf_cnpj' => 'required|unique:vendedores,cpf_cnpj,' . $this->id,
+    //         'nome' => 'required',
+    //         'razao_social' => 'required',
+    //         'tipo_pessoa' => 'required',
+    //         'telefone' => 'required',
+    //         'user_id' => 'required',
+    //     ];
+    // }
 
     public function lotes()
     {

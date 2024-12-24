@@ -8,9 +8,8 @@ class Arremate extends BaseModel
 {
 
     protected $table = 'arremates';
-    public $timestamps = true;
 
-    protected $fillable = ['lote_id', 'forma_pagamento_id', 'comprador_id', 'dt_primeiro_pagamento', 'vl_parcela'];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     protected static function boot()
     {
@@ -66,7 +65,7 @@ class Arremate extends BaseModel
     }
     public function gerarParcelas()
     {
-        $arr_forma_parcelamento = explode('|', $this->forma_pagamento->forma_parcelamento); // exemplo: "0|1|2|3|4|5|6|7|8|9|10|11"
+        $arr_forma_parcelamento = explode('/', $this->forma_pagamento->forma_parcelamento); // exemplo: "0/1/2/3/4/5/6/7/8/9/10/11"
         $nu_parcela = 1;
         $qtd_parcelas_geradas = 0;
         foreach ($arr_forma_parcelamento as $qtd_meses_parcela) {

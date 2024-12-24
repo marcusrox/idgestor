@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-class Boleto extends BaseModel 
+class Boleto extends BaseModel
 {
 
     protected $table = 'boletos';
-    public $timestamps = true;
+
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     public function parcela()
     {
         return $this->belongsTo('Parcela');
     }
-
 }

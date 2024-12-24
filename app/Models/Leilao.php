@@ -6,17 +6,16 @@ class Leilao extends BaseModel
 {
 
     protected $table = 'leiloes';
-    public $timestamps = true;
 
-    public function rules()
-    {
-        return [
-            'nome' => 'required|unique:leiloes,nome,' . $this->id,
-            'nome_organizador' => 'required',
-            'dt_leilao_de' => 'required',
-            'dt_leilao_ate' => 'required',
-        ];
-    }
+    // public function rules()
+    // {
+    //     return [
+    //         'nome' => 'required|unique:leiloes,nome,' . $this->id,
+    //         'nome_organizador' => 'required',
+    //         'dt_leilao_de' => 'required',
+    //         'dt_leilao_ate' => 'required',
+    //     ];
+    // }
 
     // // Atributos que serao mostrados no form show
     // public $attrShow = [
@@ -29,7 +28,7 @@ class Leilao extends BaseModel
     //     'dt_leilao_ate' => 'Data (até)',
     // ];
 
-    protected $fillable = ['nome', 'nome_organizador', 'html_descricao', 'local_leilao', 'dt_leilao_de', 'dt_leilao_ate'];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     public function getTotalLotesAttribute()
     {

@@ -2,36 +2,27 @@
 
 namespace App\Models;
 
-class FormaPagamento extends BaseModel 
+class FormaPagamento extends BaseModel
 {
 
     protected $table = 'formas_pagamento';
-    public $timestamps = true;
 
-    protected $fillable = ['nome', 'pct_desconto', 'qtd_parcelas', 'forma_parcelamento'];
-
-    public $attrShow = [
-        'id' => 'ID',
-        'nome' => 'Nome/Descrição',
-        'pct_desconto' => 'Pct Desconto',
-        'qtd_parcelas' => 'Qtde Parcelas',
-        'forma_parcelamento' => 'Forma de Parcelamento',
-    ];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     public function arremates()
     {
         return $this->hasMany('Arremate');
     }
 
-    public function rules()
-    {
-        return [
-            'nome' => 'required|unique:formas_pagamento,nome,' . $this->id,
-            'pct_desconto' => 'required',
-            'qtd_parcelas' => 'required',
-            'forma_parcelamento' => 'required',
-        ];
-    }
+    // public function rules()
+    // {
+    //     return [
+    //         'nome' => 'required|unique:formas_pagamento,nome,' . $this->id,
+    //         'pct_desconto' => 'required',
+    //         'qtd_parcelas' => 'required',
+    //         'forma_parcelamento' => 'required',
+    //     ];
+    // }
 
     // public function setPctDescontoAttribute($value)
     // {
@@ -40,7 +31,7 @@ class FormaPagamento extends BaseModel
     //     } else {
     //         $this->attributes['pct_desconto'] = str_replace(',', '.', $value);
     //     }
-    // } 
+    // }
 
     // // TODO: talvez seja melhor trabalhar essa conversão na apresentação, pois posso precisar trabalhar com o atributo do model como numero mesmo
     // public function getPctDescontoAttribute($value)
@@ -50,16 +41,16 @@ class FormaPagamento extends BaseModel
     //     } else {
     //         return str_replace('.', ',', $value);
     //     }
-    // }    
+    // }
 
-/*     public function __get($key)
+    /*     public function __get($key)
     {
-        
+
         $excluded = [
             // here you should add primary or foreign keys and other values,
             // that should not be touched.
             // $alternatively define an $included array to whitelist values
-            'foreignkey', 
+            'foreignkey',
         ];
         error_log('$key: ' . $key);
         error_log('$this->attributes: ' . var_export($this->attributes, true));
@@ -68,9 +59,8 @@ class FormaPagamento extends BaseModel
            && ! $this->hasGetMutator($key) && ! in_array($key, $excluded))  {
             return "modified string";
         }
-        
+
         // let everything else handle the Model class itself
         return parent::__get($key);
-    }    */ 
-
+    }    */
 }

@@ -6,7 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccessLog extends Model
 {
-    public $timestamps = false;
-    
-    protected $fillable = ['user_id', 'logon_at', 'ip_addr', 'user_agent'];
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 }

@@ -8,25 +8,17 @@ class Lote extends BaseModel
 {
 
     protected $table = 'lotes';
-    public $timestamps = true;
 
-    public function rules()
-    {
-        return [
-            'nome' => 'required|unique:lotes,nome,' . $this->id,
-            'leilao_id' => 'required',
-            'vendedor_id' => 'required',
-        ];
-    }
+    // public function rules()
+    // {
+    //     return [
+    //         'nome' => 'required|unique:lotes,nome,' . $this->id,
+    //         'leilao_id' => 'required',
+    //         'vendedor_id' => 'required',
+    //     ];
+    // }
 
-    // // Atributos que serao mostrados no form show
-    // public $attrShow = [
-    //     'id' => 'ID',
-    //     'nome' => 'Nome do Lote',
-    // ];
-
-    protected $fillable = ['nome', 'vendedor_id', 'leilao_id'];
-
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     public function leilao()
     {
