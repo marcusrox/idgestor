@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class Lote extends BaseModel
 {
 

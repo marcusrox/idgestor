@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class LoteResource extends Resource
 {
@@ -54,6 +55,8 @@ class LoteResource extends Resource
 
     public static function table(Table $table): Table
     {
+        /** @var User $user */
+        $user = Auth::user();
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
@@ -67,6 +70,9 @@ class LoteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
+                    ->color('danger')
+                    ->visible($user->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
