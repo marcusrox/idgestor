@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class LeilaoResource extends Resource
 {
@@ -68,6 +69,8 @@ class LeilaoResource extends Resource
 
     public static function table(Table $table): Table
     {
+        /** @var User $user */
+        $user = Auth::user();
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->searchable()->sortable()->label('ID'),
@@ -87,7 +90,13 @@ class LeilaoResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('Criar Lote')
                     ->url(fn($record) => route('filament.admin.resources.lotes.create', ['leilao' => $record->id]))
-                    ->label('Adicionar Lote'),
+                    ->icon('heroicon-o-plus')
+                    ->button()
+                    ->tooltip('Clique para adicionar um lote para esse leilão')
+                    ->label('Lote'),
+                \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
+                    ->color('danger')
+                    ->visible($user->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

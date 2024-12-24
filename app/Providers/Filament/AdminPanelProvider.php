@@ -33,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('33px')
             ->login()
             ->profile()
+            ->sidebarCollapsibleOnDesktop()
             ->databaseNotifications()
             ->favicon(asset('images/favicon-16x16.png'))
             ->colors([

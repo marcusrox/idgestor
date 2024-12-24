@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class VendedorResource extends Resource
 {
@@ -92,6 +93,9 @@ class VendedorResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
+                    ->color('danger')
+                    ->visible(Auth::user()->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
