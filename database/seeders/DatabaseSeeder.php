@@ -42,8 +42,8 @@ class DatabaseSeeder extends Seeder
             $arr_user // Gera os dados para criação
         );
 
-        //$this->call(RoleTableSeeder::class);
-        //$this->command->info('Role table seeded!');
+        $this->call(RoleTableSeeder::class);
+        $this->command->info('Role table seeded!');
 
         $this->call(UserTableSeeder::class);
         $this->command->info('User table seeded!');

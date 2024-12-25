@@ -92,6 +92,10 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('E-mail'),
+                Tables\Columns\TextColumn::make('roles_count')
+                    ->counts('roles')
+                    ->label('Grupos')
+                    ->badge(true),
                 //Tables\Columns\IconColumn::make('active')->boolean(),
                 Tables\Columns\ToggleColumn::make('active')
                     ->label('Active')

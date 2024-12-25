@@ -20,11 +20,11 @@ class UserTableSeeder extends Seeder
                 'email' => 'suporte@idevs.com.br'
             ],
             [
-                'name' => 'Suporte/Admin da Silva',
+                'name' => 'Suporte iDev Solutions',
                 'password' => bcrypt('12345678')
             ]
         );
-        //$u->assignRole("Administrador");
+        $u->assignRole("Administrador");
 
         $u = User::updateOrCreate(
             [
@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
                 'password' => bcrypt('12345678')
             ]
         );
-        //$u->assignRole("Vendedor");
+        $u->assignRole("Vendedor");
 
         $u = User::updateOrCreate(
             [
@@ -46,10 +46,12 @@ class UserTableSeeder extends Seeder
                 'password' => bcrypt('12345678')
             ]
         );
-        //$u->assignRole("Comprador");
+        $u->assignRole("Comprador");
 
         // Popular com dados fakes
         //factory(User::class, 30)->create();
-        User::factory()->count(10)->create();
+        if (User::count() < 10) {
+            User::factory()->count(10)->create();
+        }
     }
 }
