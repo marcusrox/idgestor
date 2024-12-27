@@ -63,6 +63,9 @@ class FormaPagamentoResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
+                    ->color('danger')
+                    ->visible(auth()->user()->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
