@@ -68,11 +68,15 @@ class RoleResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
+                    ->color('danger')
+                    ->visible(auth()->user()->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+
             ]);
     }
 

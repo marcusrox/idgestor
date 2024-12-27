@@ -6,7 +6,7 @@ use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {
-
+    use BaseModelTrait;
     protected $guarded = []; // Não precisa colocar os campos no fillable
 
     // Definir valor padrão para o campo guard_name
