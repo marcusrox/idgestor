@@ -59,9 +59,13 @@ class LoteResource extends Resource
         $user = Auth::user();
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('ID')->searchable(),
-                Tables\Columns\TextColumn::make('nome')->label('Nome do Lote')->searchable(),
-                Tables\Columns\TextColumn::make('leilao.nome')->label('Leilão')->searchable(),
+                Tables\Columns\TextColumn::make('id')->label('ID')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('nome')->label('Nome do Lote')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('leilao.nome')->label('Leilão')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('arremates_count')
+                    ->counts('arremates')
+                    ->badge()
+                    ->sortable()->label('Arremates'),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('leilao')

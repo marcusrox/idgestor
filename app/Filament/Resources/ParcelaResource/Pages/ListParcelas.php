@@ -22,30 +22,34 @@ class ListParcelas extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \Filament\Forms\Components\Form::make()
-                ->schema([
-                    Select::make('leilao_id')
-                        ->label('Leilão')
-                        ->options(Leilao::pluck('nome', 'id'))
-                        ->reactive()
-                        ->afterStateUpdated(fn($set) => $set('lote_id', null)),
-                    Select::make('lote_id')
-                        ->label('Lote')
-                        ->options(function (callable $get) {
-                            $leilaoId = $get('leilao_id');
-                            if ($leilaoId) {
-                                return Lote::where('leilao_id', $leilaoId)->pluck('numero', 'id');
-                            }
-                            return [];
-                        }),
-                    ButtonAction::make('filtrar')
-                        ->label('Aplicar Filtros')
-                        ->action(function (array $data) {
-                            $this->leilaoId = $data['leilao_id'] ?? null;
-                            $this->loteId = $data['lote_id'] ?? null;
-                        }),
-                ])
-                ->columns(3)
+            \Filament\Forms\Components\Select::make('leilao_id')
+                ->label('Leilão')
+                ->placeholder('Selecione um leilão')
+                ->options(Leilao::pluck('nome', 'id'))
+            // \Filament\Forms\Components\Form::make()
+            //     ->schema([
+            //         Select::make('leilao_id')
+            //             ->label('Leilão')
+            //             ->options(Leilao::pluck('nome', 'id'))
+            //             ->reactive()
+            //             ->afterStateUpdated(fn($set) => $set('lote_id', null)),
+            //         Select::make('lote_id')
+            //             ->label('Lote')
+            //             ->options(function (callable $get) {
+            //                 $leilaoId = $get('leilao_id');
+            //                 if ($leilaoId) {
+            //                     return Lote::where('leilao_id', $leilaoId)->pluck('numero', 'id');
+            //                 }
+            //                 return [];
+            //             }),
+            //         ButtonAction::make('filtrar')
+            //             ->label('Aplicar Filtros')
+            //             ->action(function (array $data) {
+            //                 $this->leilaoId = $data['leilao_id'] ?? null;
+            //                 $this->loteId = $data['lote_id'] ?? null;
+            //             }),
+            //     ])
+            //     ->columns(3)
         ];
     }
 

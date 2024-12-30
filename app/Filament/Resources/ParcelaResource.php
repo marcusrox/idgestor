@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ParcelaResource\Pages;
 use App\Filament\Resources\ParcelaResource\RelationManagers;
+use App\Models\Leilao;
+use App\Models\Lote;
 use App\Models\Parcela;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,9 +29,9 @@ class ParcelaResource extends Resource
                 Forms\Components\TextInput::make('nu_parcela')
                     ->required()
                     ->numeric(),
-                Forms\Components\DatePicker::make('dt_vencimento')
+                Forms\Components\DatePicker::make('dt_vencimento')->format('DD/MM/YYYY')
                     ->required(),
-                Forms\Components\TextInput::make('vl_parcela')
+                Forms\Components\TextInput::make('vl_parcela')->currency('BRL')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('vl_desconto')
@@ -63,21 +65,21 @@ class ParcelaResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('dt_vencimento')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vl_parcela')
-                    ->numeric()
+                    ->money('BRL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vl_desconto')
-                    ->numeric()
+                    ->money('BRL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vl_pago')
-                    ->numeric()
+                    ->money('BRL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('st_parcela')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dt_liquidacao')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -87,15 +89,57 @@ class ParcelaResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_by')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('updated_by')
-                    ->numeric()
-                    ->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('leilao-lote-filter')
+                    ->form(
+                        function () {
+                            return [
+                                Forms\Components\Select::make('leilao_id')
+                                    ->label('Leilão')
+                                    ->placeholder('Selecione um leilão')
+                                    ->options(Leilao::pluck('nome', 'id'))
+                                    ->reactive()
+                                    ->afterStateUpdated(fn($set) => $set('lote_id', null)),
+                                Forms\Components\Select::make('lote_id')
+                                    ->placeholder('Selecione um lote')
+                                    ->label('Lote')
+                                    ->options(function (callable $get) {
+                                        $leilaoId = $get('leilao_id');
+                                        if ($leilaoId) {
+                                            return Lote::where('leilao_id', $leilaoId)->pluck('nome', 'id');
+                                        }
+                                        return [];
+                                    }),
+
+                            ];
+                        }
+                    )
+                    ->query(
+                        function (Builder $query, array $data): Builder {
+
+                            // return $query
+                            //     ->whereHas('arremate.lote.leilao', function ($q) use ($data) {
+                            //         $q->where('id', $data['leilao_id']);
+                            //     })
+                            //     ->whereHas('arremate.lote', function ($q) use ($data) {
+                            //         $q->where('id', $data['lote_id']);
+                            //     });
+                            if (!empty($data['leilao_id'])) {
+                                $query
+                                    ->whereHas('arremate.lote.leilao', function ($q) use ($data) {
+                                        $q->where('id', $data['leilao_id']);
+                                    });
+                            }
+                            if (!empty($data['lote_id'])) {
+                                $query
+                                    ->whereHas('arremate.lote', function ($q) use ($data) {
+                                        $q->where('id', $data['lote_id']);
+                                    });
+                            }
+                            return $query;
+                        }
+                    ),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

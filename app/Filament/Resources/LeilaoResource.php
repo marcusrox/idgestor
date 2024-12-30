@@ -87,6 +87,7 @@ class LeilaoResource extends Resource
                 //Tables\Columns\TextColumn::make('lotes')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('lotes_count')
                     ->counts('lotes')
+                    ->badge()
                     ->sortable()->label('Lotes'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y H:i:s')
