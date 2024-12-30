@@ -22,7 +22,7 @@ class FormaPagamentoResource extends Resource
     protected static ?string $navigationGroup = "Cadastros";
     protected static ?string $navigationIcon = 'heroicon-o-receipt-percent';
     protected static ?string $navigationLabel = 'Formas de Pagamento';
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $label = "forma de pagamento";
     protected static ?string $pluralLabel = "formas de pagamento";

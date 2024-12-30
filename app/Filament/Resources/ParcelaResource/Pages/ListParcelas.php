@@ -22,10 +22,7 @@ class ListParcelas extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            \Filament\Forms\Components\Select::make('leilao_id')
-                ->label('Leilão')
-                ->placeholder('Selecione um leilão')
-                ->options(Leilao::pluck('nome', 'id'))
+
             // \Filament\Forms\Components\Form::make()
             //     ->schema([
             //         Select::make('leilao_id')
