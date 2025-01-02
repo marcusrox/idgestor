@@ -33,13 +33,21 @@ class ParcelaResource extends Resource
     {
         return $form
             ->schema([
-                Tables\Columns\TextColumn::make('arremate.comprador.nome')->label('Comprador'),
+                Forms\Components\Placeholder::make('leilao_nome')
+                    ->label('Leilão')
+                    ->content(fn($record) => $record->arremate->lote->leilao->nome ?? 'Desconhecido'),
+                Forms\Components\Placeholder::make('lote_nome')
+                    ->label('Lote')
+                    ->content(fn($record) => $record->arremate->lote->nome ?? 'Desconhecido'),
+                Forms\Components\Placeholder::make('comprador_nome')
+                    ->label('Comprador')
+                    ->content(fn($record) => $record->arremate->comprador->nome ?? 'Desconhecido'),
                 Forms\Components\TextInput::make('nu_parcela')
                     ->required()
                     ->numeric(),
                 Forms\Components\DatePicker::make('dt_vencimento')->format('DD/MM/YYYY')
                     ->required(),
-                Forms\Components\TextInput::make('vl_parcela')->currency('BRL')
+                Forms\Components\TextInput::make('vl_parcela')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('vl_desconto')
@@ -53,40 +61,38 @@ class ParcelaResource extends Resource
                     ->required()
                     ->maxLength(2),
                 Forms\Components\DatePicker::make('dt_liquidacao'),
-                Forms\Components\TextInput::make('created_by')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\TextInput::make('updated_by')
-                    ->numeric()
-                    ->default(null),
-            ]);
+
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('arremate_id')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('arremate.comprador.nome')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('nu_parcela')
+                    ->label('#')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('dt_vencimento')
+                    ->label('Vencimento')
                     ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vl_parcela')
-                    ->money('BRL')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('vl_desconto')
+                    ->label('Valor')
                     ->money('BRL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('vl_pago')
+                    ->label('Pago')
                     ->money('BRL')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('st_parcela')
+                    ->label('Status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('dt_liquidacao')
+                    ->label('Liquidação')
                     ->date('d/m/Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -103,23 +109,24 @@ class ParcelaResource extends Resource
                     ->form(
                         function () {
                             return [
-                                Forms\Components\Select::make('leilao_id')
-                                    ->label('Leilão')
-                                    ->placeholder('Selecione um leilão')
-                                    ->options(Leilao::pluck('nome', 'id'))
-                                    ->reactive()
-                                    ->afterStateUpdated(fn($set) => $set('lote_id', null)),
-                                Forms\Components\Select::make('lote_id')
-                                    ->placeholder('Selecione um lote')
-                                    ->label('Lote')
-                                    ->options(function (callable $get) {
-                                        $leilaoId = $get('leilao_id');
-                                        if ($leilaoId) {
-                                            return Lote::where('leilao_id', $leilaoId)->pluck('nome', 'id');
-                                        }
-                                        return [];
-                                    }),
-
+                                Forms\Components\Group::make([
+                                    Forms\Components\Select::make('leilao_id')
+                                        ->label('Leilão')
+                                        ->placeholder('Selecione um leilão')
+                                        ->options(Leilao::pluck('nome', 'id'))
+                                        ->reactive()
+                                        ->afterStateUpdated(fn($set) => $set('lote_id', null)),
+                                    Forms\Components\Select::make('lote_id')
+                                        ->placeholder('Selecione um lote')
+                                        ->label('Lote')
+                                        ->options(function (callable $get) {
+                                            $leilaoId = $get('leilao_id');
+                                            if ($leilaoId) {
+                                                return Lote::where('leilao_id', $leilaoId)->pluck('nome', 'id');
+                                            }
+                                            return [];
+                                        }),
+                                ])->columns(2),
                             ];
                         }
                     )
@@ -149,6 +156,8 @@ class ParcelaResource extends Resource
                         }
                     ),
             ])
+            ->filtersLayout(Tables\Enums\FiltersLayout::AboveContent)
+            ->filtersFormColumns(1)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
