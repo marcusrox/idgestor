@@ -14,6 +14,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Adrianovcar\Asaas\Asaas;
+use Adrianovcar\Asaas\Adapter\GuzzleHttpAdapter;
+use Adrianovcar\Asaas\Entity\Payment as PaymentEntity;
 
 class ParcelaResource extends Resource
 {
@@ -160,6 +163,47 @@ class ParcelaResource extends Resource
             ->filtersFormColumns(1)
             ->actions([
                 Tables\Actions\EditAction::make(),
+
+                Tables\Actions\Action::make('generateAsaasLink')
+                    ->label('Link de Pagamento')
+                    ->action(function ($record) {
+                        $adapter = new GuzzleHttpAdapter(env('ASAAS_API_KEY'));
+                        $asaas = new Asaas($adapter, 'sandbox');
+
+                        if (empty($record->arremate->comprador->asaas_customer_id)) {
+                            // Criar o cliente
+                            $customer = $asaas->customer()->create([
+                                'name' => $record->arremate->comprador->nome,
+                                'email' => $record->arremate->comprador->user->email,
+                                'phone' => $record->arremate->comprador->telefone,
+                                // 'mobilePhone' => $record->arremate->comprador->celular,
+                                'cpfCnpj' => $record->arremate->comprador->cpf_cnpj,
+                                // 'postalCode' => $record->arremate->comprador->cep,
+                                // 'address' => $record->arremate->comprador->endereco,
+                                // 'addressNumber' => $record->arremate->comprador->numero,
+                                // 'complement' => $record->arremate->comprador->complemento,
+                                // 'province' => $record->arremate->comprador->bairro,
+                                // 'city' => $record->arremate->comprador->cidade,
+                                // 'state' => $record->arremate->comprador->uf,
+                            ]);
+                            $record->arremate->comprador->update(['asaas_customer_id' => $customer->id]);
+                        }
+
+                        // Criar o pagamento
+                        $new_payment = new PaymentEntity();
+                        $new_payment->customer = $record->arremate->comprador->asaas_customer_id;
+                        $new_payment->billingType = 'BOLETO';
+                        $new_payment->dueDate = $record->dt_vencimento->format('Y-m-d');
+                        $new_payment->value = $record->vl_parcela;
+                        $new_payment->description = 'Parcela ' . $record->nu_parcela . ' do lote ' . $record->arremate->lote->nome . ' do leilão ' . $record->arremate->lote->leilao->nome;
+                        $new_payment->externalReference = $record->id;
+
+                        $payment = $asaas->payment()->create($new_payment);
+
+                        //$record->update(['asaas_invoice_url' => $payment->paymentLink]);
+                        dd($payment);
+                    })
+                    ->icon('heroicon-o-link'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
