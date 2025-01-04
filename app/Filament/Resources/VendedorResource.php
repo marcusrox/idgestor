@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
+use App\Enums\UfType;
 use App\Filament\Resources\VendedorResource\Pages;
 use App\Filament\Resources\VendedorResource\RelationManagers;
 use App\Models\Vendedor;
@@ -36,9 +37,10 @@ class VendedorResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\Section::make('Informações do Vendedor')
+                Forms\Components\Section::make('Informações do Vendedir')
+                    ->compact()
                     ->columns(2)
-                    ->description('Dados cadastrais do vendedor')
+                    //->description('Dados cadastrais do comprador')
                     ->collapsible()
                     ->icon('heroicon-m-shopping-bag')
                     ->schema([
@@ -47,9 +49,9 @@ class VendedorResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('razao_social')
                             ->label('Razão Social')
-                            ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('tipo_pessoa')
+                            ->required()
                             ->native(false)
                             ->options(PessoaType::class),
                         Forms\Components\TextInput::make('cpf_cnpj')
@@ -61,15 +63,39 @@ class VendedorResource extends Resource
                             ->maxLength(20),
                         Forms\Components\TextInput::make('telefone')
                             ->mask('(99) 99999-9999')
+                            ->maxLength(20),
+                        Forms\Components\TextInput::make('celular')
+                            ->mask('(99) 99999-9999')
                             ->required()
                             ->maxLength(20),
-
+                        Forms\Components\TextInput::make('endereco')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('numero')
+                            ->required()
+                            ->maxLength(10),
+                        Forms\Components\TextInput::make('complemento')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('bairro')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('cidade')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('uf')
+                            ->native(false)
+                            ->options(UfType::class),
 
                     ]),
                 Forms\Components\Select::make('user_id')
                     //->visible(!$user->is_vendedor())
-                    ->label('Usuário')
-                    ->relationship('user', 'name')
+                    ->label('Usuário do sistema')
+                    // ->relationship('user', 'name')
+                    ->options(
+                        \App\Models\User::all()->mapWithKeys(function ($user) {
+                            return [$user->id => "{$user->name} ({$user->email})"];
+                        })
+                    )
                     ->searchable()
                     ->preload(),
             ]);
@@ -82,7 +108,7 @@ class VendedorResource extends Resource
                 Tables\Columns\TextColumn::make('id')->searchable()->sortable()->label('ID'),
                 Tables\Columns\TextColumn::make('nome')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('cpf_cnpj')->searchable()->sortable()->label('CPF/CNPJ'),
-                Tables\Columns\TextColumn::make('telefone')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('celular')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('d/m/Y H:i:s')
                     ->label('Criado em')

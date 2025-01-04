@@ -176,15 +176,15 @@ class ParcelaResource extends Resource
                                 'name' => $record->arremate->comprador->nome,
                                 'email' => $record->arremate->comprador->user->email,
                                 'phone' => $record->arremate->comprador->telefone,
-                                // 'mobilePhone' => $record->arremate->comprador->celular,
+                                'mobilePhone' => $record->arremate->comprador->celular,
                                 'cpfCnpj' => $record->arremate->comprador->cpf_cnpj,
                                 // 'postalCode' => $record->arremate->comprador->cep,
-                                // 'address' => $record->arremate->comprador->endereco,
-                                // 'addressNumber' => $record->arremate->comprador->numero,
-                                // 'complement' => $record->arremate->comprador->complemento,
-                                // 'province' => $record->arremate->comprador->bairro,
-                                // 'city' => $record->arremate->comprador->cidade,
-                                // 'state' => $record->arremate->comprador->uf,
+                                'address' => $record->arremate->comprador->endereco,
+                                'addressNumber' => $record->arremate->comprador->numero,
+                                'complement' => $record->arremate->comprador->complemento,
+                                'province' => $record->arremate->comprador->bairro,
+                                'city' => $record->arremate->comprador->cidade,
+                                'state' => $record->arremate->comprador->uf,
                             ]);
                             $record->arremate->comprador->update(['asaas_customer_id' => $customer->id]);
                         }

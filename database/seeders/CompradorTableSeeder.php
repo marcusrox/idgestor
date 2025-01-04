@@ -13,23 +13,32 @@ class CompradorTableSeeder extends Seeder
         //DB::table('vendedores')->delete();
 
         Comprador::firstOrCreate(array(
-            'cpf_cnpj' => '913.150.720-41',
-            'nome' => 'Mário Comprador da Silva',
-            'razao_social' => 'Mário Comprador da Silva',
             'tipo_pessoa' => 'F',
-            'telefone' => '(71) 98888-5566',
-            'user_id' => '3',
+            'nome' => 'Mário Comprador da Silva',
+            'cpf_cnpj' => '913.150.720-41',
+            'celular' => '(71) 98888-5566',
+            'endereco' => 'Rua do Vendedor',
+            'numero' => '123',
+            'bairro' => 'Bairro do Vendedor',
+            'cidade' => 'Salvador',
+            'uf' => 'BA',
+            'user_id' => '2',
             'created_by' => 1,
             'updated_by' => 1,
         ));
 
         Comprador::firstOrCreate(array(
-            'cpf_cnpj' => '222.222.222-22',
-            'nome' => 'Jorge Comprador da Silva',
-            'razao_social' => 'Jorge Comprador da Silva',
-            'tipo_pessoa' => 'F',
-            'telefone' => '(71) 98888-5566',
-            'user_id' => '4',
+            'tipo_pessoa' => 'J',
+            'nome' => 'Fazenda Compradora',
+            'cpf_cnpj' => '56.843.760/0001-15',
+            'razao_social' => 'Fazenda Compradora LTDA',
+            'celular' => '(71) 98888-5566',
+            'endereco' => 'Rua do Vendedor',
+            'numero' => '123',
+            'bairro' => 'Bairro do Vendedor',
+            'cidade' => 'Salvador',
+            'uf' => 'BA',
+            'user_id' => '3',
             'created_by' => 1,
             'updated_by' => 1,
         ));

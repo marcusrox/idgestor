@@ -11,12 +11,20 @@ class CreateVendedoresTable extends Migration
     {
         Schema::create('vendedores', function (Blueprint $table) {
             $table->id();
-            //$table->enum('tipo_pessoa', ['F', 'J']);
-            $table->string('tipo_pessoa', 1);
-            $table->string('cpf_cnpj');
+
+            $table->string('tipo_pessoa')->length(1);
             $table->string('nome');
-            $table->string('razao_social');
-            $table->string('telefone');
+            $table->string('cpf_cnpj');
+            $table->string('razao_social')->nullable();
+            $table->string('telefone')->nullable();
+            $table->string('celular');
+            $table->string('endereco');
+            $table->string('numero');
+            $table->string('complemento')->nullable();
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('uf')->length(2);
+
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
