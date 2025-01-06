@@ -64,6 +64,11 @@ class ParcelaResource extends Resource
                     ->required()
                     ->maxLength(2),
                 Forms\Components\DatePicker::make('dt_liquidacao'),
+                Forms\Components\TextInput::make('asaas_invoice_url')
+                    ->label('Link de Pagamento')
+                    ->disabled()
+                    ->url()
+                    ->suffixIcon('heroicon-o-link'),
 
             ])->columns(3);
     }
@@ -166,7 +171,7 @@ class ParcelaResource extends Resource
 
                 Tables\Actions\Action::make('generateAsaasLink')
                     ->label('Link de Pagamento')
-                    ->action(function ($record) {
+                    ->action(function ($record, $data) {
                         $adapter = new GuzzleHttpAdapter(env('ASAAS_API_KEY'));
                         $asaas = new Asaas($adapter, 'sandbox');
 
@@ -178,7 +183,7 @@ class ParcelaResource extends Resource
                                 'phone' => $record->arremate->comprador->telefone,
                                 'mobilePhone' => $record->arremate->comprador->celular,
                                 'cpfCnpj' => $record->arremate->comprador->cpf_cnpj,
-                                // 'postalCode' => $record->arremate->comprador->cep,
+                                'postalCode' => $record->arremate->comprador->cep,
                                 'address' => $record->arremate->comprador->endereco,
                                 'addressNumber' => $record->arremate->comprador->numero,
                                 'complement' => $record->arremate->comprador->complemento,
@@ -200,9 +205,30 @@ class ParcelaResource extends Resource
 
                         $payment = $asaas->payment()->create($new_payment);
 
-                        //$record->update(['asaas_invoice_url' => $payment->paymentLink]);
-                        dd($payment);
+                        // $array_payment = $payment->toArray();
+                        $record->update(['asaas_invoice_url' => $payment->invoiceUrl]);
+
+                        // Retorna os dados do boleto para serem exibidos no modal
+                        $data['invoiceUrl'] = $payment->invoiceUrl;
+                        $data['dueDate'] = $record->dt_vencimento->format('d/m/Y');
+                        $data['value'] = $record->vl_parcela;
+                        return $data;
                     })
+                    // ->modalHeading('Inegração com pagamento Asaas')
+                    // ->modalSubheading('Confira as informações da cobrança gerada.')
+                    // ->modalButton('Fechar')
+                    // ->form([
+                    //     Forms\Components\TextInput::make('asaas_invoice_url')
+                    //         ->label('Link de Pagamento')
+                    //         ->disabled(),
+                    //     // Forms\Components\TextInput::make('dueDate')
+                    //     //     ->label('Data de Vencimento')
+                    //     //     ->disabled(),
+                    //     // Forms\Components\TextInput::make('value')
+                    //     //     ->label('Valor')
+                    //     //     ->prefix('R$')
+                    //     //     ->disabled(),
+                    // ])
                     ->icon('heroicon-o-link'),
             ])
             ->bulkActions([

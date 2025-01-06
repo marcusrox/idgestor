@@ -22,6 +22,7 @@ class CreateVendedoresTable extends Migration
             $table->string('numero');
             $table->string('complemento')->nullable();
             $table->string('bairro');
+            $table->string('cep');
             $table->string('cidade');
             $table->string('uf')->length(2);
 

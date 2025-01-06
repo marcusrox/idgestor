@@ -4,72 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5f7cbb51f99268689b2b029fd82e8a3",
+    "content-hash": "88f09c2093dde53d1a7ab57a9a54be40",
     "packages": [
-        {
-            "name": "adrianovcar/asaas-php-sdk",
-            "version": "v2.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/adrianovcar/asaas-php-sdk.git",
-                "reference": "3370b2429712155da1f5878ff4458640ca0f4cf9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/adrianovcar/asaas-php-sdk/zipball/3370b2429712155da1f5878ff4458640ca0f4cf9",
-                "reference": "3370b2429712155da1f5878ff4458640ca0f4cf9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.4"
-            },
-            "require-dev": {
-                "guzzlehttp/guzzle": "^7.0",
-                "pestphp/pest": "^2.34",
-                "pestphp/pest-plugin-faker": "2.x-dev"
-            },
-            "suggest": {
-                "guzzlehttp/guzzle": "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:^7.0."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Adrianovcar\\Asaas\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adriano Carrijo",
-                    "email": "adrianovieirac@gmail.com",
-                    "homepage": "https://moblu.es"
-                },
-                {
-                    "name": "Agência Softr",
-                    "email": "agencia.softr@gmail.com",
-                    "homepage": "http://www.softr.com.br"
-                }
-            ],
-            "description": "Asaas.com PHP API v3 Wrapper",
-            "homepage": "https://github.com/adrianovcar/asaas-php-sdk",
-            "keywords": [
-                "Asaas",
-                "Payment SaaS",
-                "api",
-                "boleto",
-                "credit card",
-                "pix"
-            ],
-            "support": {
-                "issues": "https://github.com/adrianovcar/asaas-php-sdk/issues",
-                "source": "https://github.com/adrianovcar/asaas-php-sdk/tree/v2.5.1"
-            },
-            "time": "2024-07-10T20:03:59+00:00"
-        },
         {
             "name": "anourvalar/eloquent-serialize",
             "version": "1.2.27",
@@ -3272,6 +3208,70 @@
                 "source": "https://github.com/livewire/volt"
             },
             "time": "2024-11-12T14:51:01+00:00"
+        },
+        {
+            "name": "marcusrox/asaas-php-sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marcusrox/asaas-php-sdk.git",
+                "reference": "30564714af78d17814acf729d7d97e0220d9e8bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marcusrox/asaas-php-sdk/zipball/30564714af78d17814acf729d7d97e0220d9e8bd",
+                "reference": "30564714af78d17814acf729d7d97e0220d9e8bd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.0",
+                "pestphp/pest": "^2.34",
+                "pestphp/pest-plugin-faker": "2.x-dev"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "To use GuzzleHttpAdapter, require guzzlehttp/guzzle:^7.0."
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Adrianovcar\\Asaas\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adriano Carrijo",
+                    "email": "adrianovieirac@gmail.com",
+                    "homepage": "https://moblu.es"
+                },
+                {
+                    "name": "Agência Softr",
+                    "email": "agencia.softr@gmail.com",
+                    "homepage": "http://www.softr.com.br"
+                }
+            ],
+            "description": "Asaas.com PHP API v3 Wrapper",
+            "homepage": "https://github.com/marcusrox/asaas-php-sdk",
+            "keywords": [
+                "Asaas",
+                "Payment SaaS",
+                "api",
+                "boleto",
+                "credit card",
+                "pix"
+            ],
+            "support": {
+                "source": "https://github.com/marcusrox/asaas-php-sdk/tree/master"
+            },
+            "time": "2025-01-04T14:28:27+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -11135,12 +11135,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "marcusrox/asaas-php-sdk": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }

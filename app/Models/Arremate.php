@@ -15,12 +15,20 @@ class Arremate extends BaseModel
     {
         parent::boot();
 
+        // Garantir que um comprador não arremate o mesmo lote mais de uma vez
         static::saving(function ($model) {
-            $existe = Arremate::where('lote_id', $model->lote_id)
-                ->where('comprador_id', $model->comprador_id)
-                ->exists();
+            if ($model->exists) { // Se atualizando
+                $existeComprador = Arremate::where('lote_id', $model->lote_id)
+                    ->where('comprador_id', $model->comprador_id)
+                    ->where('id', '<>', $model->id)
+                    ->exists();
+            } else { // Se criando
+                $existeComprador = Arremate::where('lote_id', $model->lote_id)
+                    ->where('comprador_id', $model->comprador_id)
+                    ->exists();
+            }
 
-            if ($existe) {
+            if ($existeComprador) {
                 throw new \Exception('Este comprador já arrematou este lote.');
                 // throw ValidationException::withMessages([
                 //     'comprador_id' => 'Este comprador já arrematou este lote.',
