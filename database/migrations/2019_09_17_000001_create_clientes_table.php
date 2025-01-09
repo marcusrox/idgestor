@@ -4,12 +4,12 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompradoresTable extends Migration
+class CreateClientesTable extends Migration
 {
 
     public function up()
     {
-        Schema::create('compradores', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->id();
 
             $table->string('tipo_pessoa')->length(1);
@@ -35,6 +35,6 @@ class CreateCompradoresTable extends Migration
 
     public function down()
     {
-        Schema::drop('compradores');
+        Schema::drop('clientes');
     }
 }

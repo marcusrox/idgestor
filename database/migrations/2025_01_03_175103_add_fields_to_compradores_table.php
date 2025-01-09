@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('compradores', function (Blueprint $table) {
+        Schema::table('clientes', function (Blueprint $table) {
             $table->string('asaas_customer_id')->nullable();
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('compradores', function (Blueprint $table) {
+        Schema::table('clientes', function (Blueprint $table) {
             $table->dropColumn('asaas_customer_id');
         });
     }

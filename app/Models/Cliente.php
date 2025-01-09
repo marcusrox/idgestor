@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-
-class Comprador extends BaseModel
+class Cliente extends BaseModel
 {
-    protected $table = 'compradores';
+    protected $table = 'clientes';
 
     // public function rules()
     // {

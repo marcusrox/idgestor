@@ -18,22 +18,22 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CompradorResource extends Resource
 {
-    protected static ?string $model = Comprador::class;
-    protected static ?string $slug = "compradores";
+    protected static ?string $model = Cliente::class;
+    protected static ?string $slug = "clientes";
 
     protected static ?string $navigationGroup = "Cadastros";
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
-    protected static ?string $navigationLabel = 'Compradores';
+    protected static ?string $navigationLabel = 'Clientes';
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $label = "comprador";
-    protected static ?string $pluralLabel = "compradores";
+    protected static ?string $label = "cliente";
+    protected static ?string $pluralLabel = "clientes";
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Informações do Comprador')
+                Forms\Components\Section::make('Informações do Cliente')
                     ->compact()
                     ->columns(2)
                     //->description('Dados cadastrais do comprador')
