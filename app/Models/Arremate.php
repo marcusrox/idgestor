@@ -15,23 +15,23 @@ class Arremate extends BaseModel
     {
         parent::boot();
 
-        // Garantir que um comprador não arremate o mesmo lote mais de uma vez
+        // Garantir que um cliente não arremate o mesmo lote mais de uma vez
         static::saving(function ($model) {
             if ($model->exists) { // Se atualizando
-                $existeComprador = Arremate::where('lote_id', $model->lote_id)
-                    ->where('comprador_id', $model->comprador_id)
+                $existeCliente = Arremate::where('lote_id', $model->lote_id)
+                    ->where('cliente_id', $model->cliente)
                     ->where('id', '<>', $model->id)
                     ->exists();
             } else { // Se criando
-                $existeComprador = Arremate::where('lote_id', $model->lote_id)
-                    ->where('comprador_id', $model->comprador_id)
+                $existeCliente = Arremate::where('lote_id', $model->lote_id)
+                    ->where('cliente_id', $model->cliente_id)
                     ->exists();
             }
 
-            if ($existeComprador) {
-                throw new \Exception('Este comprador já arrematou este lote.');
+            if ($existeCliente) {
+                throw new \Exception('Este cliente já arrematou este lote.');
                 // throw ValidationException::withMessages([
-                //     'comprador_id' => 'Este comprador já arrematou este lote.',
+                //     'cliente_id' => 'Este cliente já arrematou este lote.',
                 // ]);
             }
         });
@@ -47,9 +47,9 @@ class Arremate extends BaseModel
         return $this->hasMany('App\Models\Parcela');
     }
 
-    public function comprador()
+    public function cliente()
     {
-        return $this->belongsTo('App\Models\Comprador');
+        return $this->belongsTo('App\Models\Cliente');
     }
 
     public function lote()
@@ -67,7 +67,7 @@ class Arremate extends BaseModel
         return [
             'lote_id' => 'required',
             'forma_pagamento_id' => 'required',
-            'comprador_id' => 'required|unique:arremates,comprador_id,lote_id',
+            'cliente_id' => 'required|unique:arremates,cliente_id,lote_id',
             'dt_primeiro_pagamento' => 'required',
         ];
     }

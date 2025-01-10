@@ -40,7 +40,7 @@ class VendedorResource extends Resource
                 Forms\Components\Section::make('Informações do Vendedir')
                     ->compact()
                     ->columns(2)
-                    //->description('Dados cadastrais do comprador')
+                    //->description('Dados cadastrais do cliente')
                     ->collapsible()
                     ->icon('heroicon-m-shopping-bag')
                     ->schema([

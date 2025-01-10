@@ -14,7 +14,7 @@ class ClienteTableSeeder extends Seeder
 
         Cliente::firstOrCreate(array(
             'tipo_pessoa' => 'F',
-            'nome' => 'Mário Comprador da Silva',
+            'nome' => 'Mário Cliente da Silva',
             'cpf_cnpj' => '913.150.720-41',
             'celular' => '(71) 98888-5566',
             'endereco' => 'Rua do Vendedor',
@@ -30,9 +30,9 @@ class ClienteTableSeeder extends Seeder
 
         Cliente::firstOrCreate(array(
             'tipo_pessoa' => 'J',
-            'nome' => 'Fazenda Compradora',
+            'nome' => 'Fazenda Cliente',
             'cpf_cnpj' => '56.843.760/0001-15',
-            'razao_social' => 'Fazenda Compradora LTDA',
+            'razao_social' => 'Fazenda Cliente LTDA',
             'celular' => '(71) 98888-5566',
             'endereco' => 'Rua do Vendedor',
             'numero' => '123',

@@ -39,14 +39,14 @@ class UserTableSeeder extends Seeder
 
         $u = User::updateOrCreate(
             [
-                'name' => 'Mário Comprador da Silva'
+                'name' => 'Mário Cliente da Silva'
             ],
             [
                 'email' => 'mario@idevs.com.br',
                 'password' => bcrypt('12345678')
             ]
         );
-        $u->assignRole("Comprador");
+        $u->assignRole("Cliente");
 
         // Popular com dados fakes
         //factory(User::class, 30)->create();

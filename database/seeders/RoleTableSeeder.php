@@ -19,8 +19,8 @@ class RoleTableSeeder extends Seeder
             //'label' => 'admin'
         ]);
         Role::firstOrCreate([
-            'name' => 'Comprador',
-            //'label' => 'comprador'
+            'name' => 'Cliente',
+            //'label' => 'cliente'
         ]);
         Role::firstOrCreate([
             'name' => 'Vendedor',

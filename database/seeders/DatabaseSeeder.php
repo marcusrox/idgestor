@@ -12,7 +12,7 @@ use Database\Seeders\UserTableSeeder;
 use Database\Seeders\LeilaoTableSeeder;
 use Database\Seeders\VendedorTableSeeder;
 use Database\Seeders\LoteTableSeeder;
-use Database\Seeders\CompradorTableSeeder;
+use Database\Seeders\ClienteTableSeeder;
 use Database\Seeders\FormaPagamentoTableSeeder;
 use Database\Seeders\ArremateTableSeeder;
 
@@ -57,8 +57,8 @@ class DatabaseSeeder extends Seeder
         $this->call(LoteTableSeeder::class);
         $this->command->info('Lote table seeded!');
 
-        $this->call(CompradorTableSeeder::class);
-        $this->command->info('Comprador table seeded!');
+        $this->call(ClienteTableSeeder::class);
+        $this->command->info('Cliente table seeded!');
 
         $this->call(FormaPagamentoTableSeeder::class);
         $this->command->info('FormaPagamento table seeded!');

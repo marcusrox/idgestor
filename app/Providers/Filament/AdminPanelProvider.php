@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->brandName('HorseBID')
+            ->brandName('idGestor')
             ->brandLogo(asset('images/HorseBID-Logo1.png'))
             ->brandLogoHeight('33px')
             ->login()

@@ -4,9 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
 use App\Enums\UfType;
-use App\Filament\Resources\CompradorResource\Pages;
-use App\Filament\Resources\CompradorResource\RelationManagers;
-use App\Models\Comprador;
+use App\Filament\Resources\ClienteResource\Pages;
+use App\Filament\Resources\ClienteResource\RelationManagers;
+use App\Models\Cliente;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,7 +16,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CompradorResource extends Resource
+class ClienteResource extends Resource
 {
     protected static ?string $model = Cliente::class;
     protected static ?string $slug = "clientes";
@@ -36,7 +36,7 @@ class CompradorResource extends Resource
                 Forms\Components\Section::make('Informações do Cliente')
                     ->compact()
                     ->columns(2)
-                    //->description('Dados cadastrais do comprador')
+                    //->description('Dados cadastrais do cliente')
                     ->collapsible()
                     ->icon('heroicon-m-shopping-bag')
                     ->schema([
@@ -142,9 +142,9 @@ class CompradorResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCompradors::route('/'),
-            'create' => Pages\CreateComprador::route('/create'),
-            'edit' => Pages\EditComprador::route('/{record}/edit'),
+            'index' => Pages\ListClientes::route('/'),
+            'create' => Pages\CreateCliente::route('/create'),
+            'edit' => Pages\EditCliente::route('/{record}/edit'),
         ];
     }
 }

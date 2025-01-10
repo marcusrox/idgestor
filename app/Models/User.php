@@ -82,9 +82,9 @@ class User extends Authenticatable
         return $this->avatar_url;
     }
 
-    public function isComprador()
+    public function isCliente()
     {
-        return $this->hasRole('Comprador');
+        return $this->hasRole('Cliente');
     }
 
     public function isVendedor()

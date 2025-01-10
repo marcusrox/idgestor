@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\CompradorResource\Pages;
+namespace App\Filament\Resources\ClienteResource\Pages;
 
-use App\Filament\Resources\CompradorResource;
+use App\Filament\Resources\ClienteResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Auth;
 
-class EditComprador extends EditRecord
+class EditCliente extends EditRecord
 {
-    protected static string $resource = CompradorResource::class;
+    protected static string $resource = ClienteResource::class;
 
     protected function getSavedNotification(): ?Notification
     {
@@ -19,8 +19,8 @@ class EditComprador extends EditRecord
         return
             Notification::make()
             ->success()
-            ->title('Editar comprador')
-            ->body('O comprador foi alterado com sucesso!')
+            ->title('Editar cliente')
+            ->body('O cliente foi alterado com sucesso!')
             ->sendToDatabase($user);
     }
 

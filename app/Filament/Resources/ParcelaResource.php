@@ -42,9 +42,9 @@ class ParcelaResource extends Resource
                 Forms\Components\Placeholder::make('lote_nome')
                     ->label('Lote')
                     ->content(fn($record) => $record->arremate->lote->nome ?? 'Desconhecido'),
-                Forms\Components\Placeholder::make('comprador_nome')
-                    ->label('Comprador')
-                    ->content(fn($record) => $record->arremate->comprador->nome ?? 'Desconhecido'),
+                Forms\Components\Placeholder::make('cliente_nome')
+                    ->label('Cliente')
+                    ->content(fn($record) => $record->arremate->cliente->nome ?? 'Desconhecido'),
                 Forms\Components\TextInput::make('nu_parcela')
                     ->required()
                     ->numeric(),
@@ -77,7 +77,7 @@ class ParcelaResource extends Resource
     {
         return $table
             ->columns([
-                // Tables\Columns\TextColumn::make('arremate.comprador.nome')
+                // Tables\Columns\TextColumn::make('arremate.cliente.nome')
                 //     ->numeric()
                 //     ->sortable(),
                 Tables\Columns\TextColumn::make('nu_parcela')
@@ -175,28 +175,28 @@ class ParcelaResource extends Resource
                         $adapter = new GuzzleHttpAdapter(env('ASAAS_API_KEY'));
                         $asaas = new Asaas($adapter, 'sandbox');
 
-                        if (empty($record->arremate->comprador->asaas_customer_id)) {
+                        if (empty($record->arremate->cliente->asaas_customer_id)) {
                             // Criar o cliente
                             $customer = $asaas->customer()->create([
-                                'name' => $record->arremate->comprador->nome,
-                                'email' => $record->arremate->comprador->user->email,
-                                'phone' => $record->arremate->comprador->telefone,
-                                'mobilePhone' => $record->arremate->comprador->celular,
-                                'cpfCnpj' => $record->arremate->comprador->cpf_cnpj,
-                                'postalCode' => $record->arremate->comprador->cep,
-                                'address' => $record->arremate->comprador->endereco,
-                                'addressNumber' => $record->arremate->comprador->numero,
-                                'complement' => $record->arremate->comprador->complemento,
-                                'province' => $record->arremate->comprador->bairro,
-                                'city' => $record->arremate->comprador->cidade,
-                                'state' => $record->arremate->comprador->uf,
+                                'name' => $record->arremate->cliente->nome,
+                                'email' => $record->arremate->cliente->user->email,
+                                'phone' => $record->arremate->cliente->telefone,
+                                'mobilePhone' => $record->arremate->cliente->celular,
+                                'cpfCnpj' => $record->arremate->cliente->cpf_cnpj,
+                                'postalCode' => $record->arremate->cliente->cep,
+                                'address' => $record->arremate->cliente->endereco,
+                                'addressNumber' => $record->arremate->cliente->numero,
+                                'complement' => $record->arremate->cliente->complemento,
+                                'province' => $record->arremate->cliente->bairro,
+                                'city' => $record->arremate->cliente->cidade,
+                                'state' => $record->arremate->cliente->uf,
                             ]);
-                            $record->arremate->comprador->update(['asaas_customer_id' => $customer->id]);
+                            $record->arremate->cliente->update(['asaas_customer_id' => $customer->id]);
                         }
 
                         // Criar o pagamento
                         $new_payment = new PaymentEntity();
-                        $new_payment->customer = $record->arremate->comprador->asaas_customer_id;
+                        $new_payment->customer = $record->arremate->cliente->asaas_customer_id;
                         $new_payment->billingType = 'BOLETO';
                         $new_payment->dueDate = $record->dt_vencimento->format('Y-m-d');
                         $new_payment->value = $record->vl_parcela;

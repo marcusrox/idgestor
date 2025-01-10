@@ -9,7 +9,7 @@ class Cliente extends BaseModel
     // public function rules()
     // {
     //     return [
-    //         'cpf_cnpj' => 'required|unique:compradores,cpf_cnpj,' . $this->id,
+    //         'cpf_cnpj' => 'required|unique:clientes,cpf_cnpj,' . $this->id,
     //         'nome' => 'required',
     //         'razao_social' => 'required',
     //         'tipo_pessoa' => 'required',

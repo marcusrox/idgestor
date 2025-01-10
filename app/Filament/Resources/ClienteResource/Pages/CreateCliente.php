@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\CompradorResource\Pages;
+namespace App\Filament\Resources\ClienteResource\Pages;
 
-use App\Filament\Resources\CompradorResource;
+use App\Filament\Resources\ClienteResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Auth;
 
-class CreateComprador extends CreateRecord
+class CreateCliente extends CreateRecord
 {
-    protected static string $resource = CompradorResource::class;
+    protected static string $resource = ClienteResource::class;
 
     protected function getCreatedNotification(): ?Notification
     {
@@ -19,8 +19,8 @@ class CreateComprador extends CreateRecord
         return
             Notification::make()
             ->success()
-            ->title('Novo comparador')
-            ->body('O novo comprador foi cadastrado com sucesso!')
+            ->title('Novo cliente')
+            ->body('O novo cliente foi cadastrado com sucesso!')
             ->sendToDatabase($user);
     }
 
