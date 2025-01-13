@@ -18,13 +18,14 @@ class CreateVendedoresTable extends Migration
             $table->string('razao_social')->nullable();
             $table->string('telefone')->nullable();
             $table->string('celular');
+            $table->string('email')->nullable();
             $table->string('endereco')->nullable();
             $table->string('numero')->nullable();
             $table->string('complemento')->nullable();
             $table->string('bairro')->nullable();
             $table->string('cep')->length(9)->nullable();
             $table->string('cidade')->nullable();
-            $table->string('uf')->length(2);
+            $table->foreignId('uf_id')->constrained();
 
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

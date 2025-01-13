@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
-use App\Enums\UfType;
 use App\Filament\Resources\FornecedorResource\Pages;
 use App\Filament\Resources\FornecedorResource\RelationManagers;
 use App\Models\Fornecedor;
@@ -80,8 +79,8 @@ class FornecedorResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('uf')
-                            ->native(false)
-                            ->options(UfType::class),
+                            ->required()
+                            ->relationship('uf', 'nome'),
                         Forms\Components\TextInput::make('cep')
                             ->mask('99999-999')
                             ->required()

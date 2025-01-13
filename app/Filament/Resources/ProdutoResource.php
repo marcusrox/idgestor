@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
-use App\Enums\UfType;
 use App\Filament\Resources\ProdutoResource\Pages;
 use App\Filament\Resources\ProdutoResource\RelationManagers;
 use App\Models\Produto;

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Categoria;
 use App\Models\User;
+use App\Models\VendaSituacao;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -46,6 +47,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->command->info('User table seeded!');
 
+        $this->call(UfSeeder::class);
+        $this->command->info('Uf table seeded!');
+
+        $this->call(CidadeSeeder::class);
+        $this->command->info('Cidade table seeded!');
+
         $this->call(FornecedorTableSeeder::class);
         $this->command->info('Fornecedor table seeded!');
 
@@ -63,6 +70,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FormaPagamentoTableSeeder::class);
         $this->command->info('FormaPagamento table seeded!');
+
+        $this->call(VendaSituacaoSeeder::class);
+        $this->command->info('VendaSituacao table seeded!');
+
+
+        // $this->call(VendaTableSeeder::class);
+        // $this->command->info('Venda table seeded!');
 
         // activity()->enableLogging();
 

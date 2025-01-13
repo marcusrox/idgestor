@@ -23,7 +23,7 @@ class FornecedorTableSeeder extends Seeder
             'bairro' => 'Bairro do Mato',
             'cep' => '40000-000',
             'cidade' => 'Salvador',
-            'uf' => 'BA',
+            'uf_id' => '1',
 
             'created_by' => 1,
             'updated_by' => 1,
@@ -40,7 +40,7 @@ class FornecedorTableSeeder extends Seeder
             'bairro' => 'Bairro do Oeste',
             'cep' => '40000-000',
             'cidade' => 'Salvador',
-            'uf' => 'BA',
+            'uf_id' => '1',
 
             'created_by' => 1,
             'updated_by' => 1,

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
-use App\Enums\UfType;
 use App\Filament\Resources\ClienteResource\Pages;
 use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
@@ -79,8 +78,8 @@ class ClienteResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('uf')
-                            ->native(false)
-                            ->options(UfType::class),
+                            ->required()
+                            ->relationship('uf', 'nome'),
                         Forms\Components\TextInput::make('cep')
                             ->mask('99999-999')
                             ->required()

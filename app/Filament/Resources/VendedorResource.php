@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
-use App\Enums\UfType;
 use App\Filament\Resources\VendedorResource\Pages;
 use App\Filament\Resources\VendedorResource\RelationManagers;
 use App\Models\Vendedor;
@@ -83,8 +82,8 @@ class VendedorResource extends Resource
                             ->required()
                             ->maxLength(255),
                         Forms\Components\Select::make('uf')
-                            ->native(false)
-                            ->options(UfType::class),
+                            ->required()
+                            ->relationship('uf', 'nome'),
                         Forms\Components\TextInput::make('cep')
                             ->mask('99999-999')
                             ->required()

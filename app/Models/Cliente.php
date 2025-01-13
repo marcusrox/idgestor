@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Cliente extends BaseModel
 {
     protected $table = 'clientes';
@@ -37,5 +39,15 @@ class Cliente extends BaseModel
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function uf(): BelongsTo
+    {
+        return $this->belongsTo(Uf::class, 'uf_id');
+    }
+
+    public function cidade(): BelongsTo
+    {
+        return $this->belongsTo(Cidade::class, 'cidade_id');
     }
 }

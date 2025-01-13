@@ -4,12 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientesTable extends Migration
+return new class extends Migration
 {
-
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('transportadoras', function (Blueprint $table) {
             $table->id();
 
             $table->string('tipo_pessoa')->length(1);
@@ -27,15 +29,21 @@ class CreateClientesTable extends Migration
             $table->string('cidade')->nullable();
             $table->foreignId('uf_id')->constrained();
 
-            $table->foreignId('user_id')->constrained();
+            $table->string('nome_contato')->nullable();
+            $table->string('site')->nullable();
+
+            $table->string('condicoes_transporte')->nullable();
+
+            $table->boolean('ativo')->default(1);
             $table->timestamps();
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::drop('clientes');
+        Schema::dropIfExists('transportadoras');
     }
-}
+};
