@@ -4,14 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendedoresTable extends Migration
+return new class extends Migration
 {
-
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('vendedores', function (Blueprint $table) {
+        Schema::create('fornecedores', function (Blueprint $table) {
             $table->id();
-
             $table->string('tipo_pessoa')->length(1);
             $table->string('nome');
             $table->string('cpf_cnpj');
@@ -26,21 +27,18 @@ class CreateVendedoresTable extends Migration
             $table->string('cidade')->nullable();
             $table->string('uf')->length(2);
 
-            $table->foreignId('user_id')->constrained();
-            $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
+
+            $table->timestamps();
         });
-
-        // Schema::table('vendedores', function (Blueprint $table) {
-        //     $table->foreign('user_id')->references('id')->on('users')
-        //         ->onDelete('restrict')
-        //         ->onUpdate('restrict');
-        // });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::drop('vendedores');
+        Schema::dropIfExists('fornecedores');
     }
-}
+};

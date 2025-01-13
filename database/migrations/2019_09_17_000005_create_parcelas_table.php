@@ -11,8 +11,8 @@ class CreateParcelasTable extends Migration
     {
         Schema::create('parcelas', function (Blueprint $table) {
             $table->id();
-            //$table->integer('arremate_id')->unsigned();
-            $table->foreignId('arremate_id')->constrained('arremates');
+
+            //$table->foreignId('arremate_id')->constrained('arremates');
 
             $table->integer('nu_parcela')->unsigned();
             $table->date('dt_vencimento');

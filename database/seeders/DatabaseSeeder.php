@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Categoria;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -9,12 +10,9 @@ use Illuminate\Support\Facades\Hash;
 
 use Database\Seeders\RoleTableSeeder;
 use Database\Seeders\UserTableSeeder;
-use Database\Seeders\LeilaoTableSeeder;
-use Database\Seeders\VendedorTableSeeder;
-use Database\Seeders\LoteTableSeeder;
+use Database\Seeders\FornecedorTableSeeder;
 use Database\Seeders\ClienteTableSeeder;
 use Database\Seeders\FormaPagamentoTableSeeder;
-use Database\Seeders\ArremateTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -48,23 +46,23 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->command->info('User table seeded!');
 
-        $this->call(LeilaoTableSeeder::class);
-        $this->command->info('Leilao table seeded!');
+        $this->call(FornecedorTableSeeder::class);
+        $this->command->info('Fornecedor table seeded!');
 
         $this->call(VendedorTableSeeder::class);
         $this->command->info('Vendedor table seeded!');
 
-        $this->call(LoteTableSeeder::class);
-        $this->command->info('Lote table seeded!');
+        $this->call(CategoriaTableSeeder::class);
+        $this->command->info('Categoria table seeded!');
+
+        $this->call(ProdutoTableSeeder::class);
+        $this->command->info('Produto table seeded!');
 
         $this->call(ClienteTableSeeder::class);
         $this->command->info('Cliente table seeded!');
 
         $this->call(FormaPagamentoTableSeeder::class);
         $this->command->info('FormaPagamento table seeded!');
-
-        $this->call(ArremateTableSeeder::class);
-        $this->command->info('Arremate table seeded!');
 
         // activity()->enableLogging();
 

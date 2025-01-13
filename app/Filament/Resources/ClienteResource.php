@@ -81,7 +81,10 @@ class ClienteResource extends Resource
                         Forms\Components\Select::make('uf')
                             ->native(false)
                             ->options(UfType::class),
-
+                        Forms\Components\TextInput::make('cep')
+                            ->mask('99999-999')
+                            ->required()
+                            ->maxLength(9),
                     ]),
                 Forms\Components\Select::make('user_id')
                     //->visible(!$user->is_vendedor())

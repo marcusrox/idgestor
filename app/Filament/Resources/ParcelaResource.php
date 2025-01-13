@@ -27,7 +27,7 @@ class ParcelaResource extends Resource
     protected static ?string $navigationGroup = "Cadastros";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Parcelas';
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 6;
 
     protected static ?string $label = "parcela";
     protected static ?string $pluralLabel = "parcelas";

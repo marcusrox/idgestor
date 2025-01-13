@@ -4,9 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Enums\PessoaType;
 use App\Enums\UfType;
-use App\Filament\Resources\VendedorResource\Pages;
-use App\Filament\Resources\VendedorResource\RelationManagers;
-use App\Models\Vendedor;
+use App\Filament\Resources\FornecedorResource\Pages;
+use App\Filament\Resources\FornecedorResource\RelationManagers;
+use App\Models\Fornecedor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,32 +15,29 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
 
-class VendedorResource extends Resource
+class FornecedorResource extends Resource
 {
-    protected static ?string $model = Vendedor::class;
-    protected static ?string $slug = "vendedores";
+    protected static ?string $model = Fornecedor::class;
+
+    protected static ?string $slug = "fornecedores";
 
     protected static ?string $navigationGroup = "Cadastros";
-    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
-    protected static ?string $navigationLabel = 'Vendedores';
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationIcon = 'heroicon-o-phone';
+    protected static ?string $navigationLabel = 'Fornecedores';
+    protected static ?int $navigationSort = 1;
 
-    protected static ?string $label = "vendedor";
-    protected static ?string $pluralLabel = "vendedores";
+    protected static ?string $label = "fornecedor";
+    protected static ?string $pluralLabel = "fornecedores";
 
     public static function form(Form $form): Form
     {
-        /** @var \App\Models\User */
-        //$user = auth()->user();
-
         return $form
             ->schema([
-                Forms\Components\Section::make('Informações do Vendedor')
+                Forms\Components\Section::make('Informações do Fornecedor')
                     ->compact()
                     ->columns(2)
-                    //->description('Dados cadastrais do cliente')
+                    //->description('Dados cadastrais do fornecedor')
                     ->collapsible()
                     ->icon('heroicon-m-shopping-bag')
                     ->schema([
@@ -90,17 +87,6 @@ class VendedorResource extends Resource
                             ->required()
                             ->maxLength(9),
                     ]),
-                Forms\Components\Select::make('user_id')
-                    //->visible(!$user->is_vendedor())
-                    ->label('Usuário do sistema')
-                    // ->relationship('user', 'name')
-                    ->options(
-                        \App\Models\User::all()->mapWithKeys(function ($user) {
-                            return [$user->id => "{$user->name} ({$user->email})"];
-                        })
-                    )
-                    ->searchable()
-                    ->preload(),
             ]);
     }
 
@@ -130,7 +116,7 @@ class VendedorResource extends Resource
                 Tables\Actions\EditAction::make(),
                 \Rmsramos\Activitylog\Actions\ActivityLogTimelineTableAction::make('Log')
                     ->color('danger')
-                    ->visible(Auth::user()->isAdmin()),
+                    ->visible(auth()->user()->isAdmin()),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -149,9 +135,9 @@ class VendedorResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListVendedors::route('/'),
-            'create' => Pages\CreateVendedor::route('/create'),
-            'edit' => Pages\EditVendedor::route('/{record}/edit'),
+            'index' => Pages\ListFornecedors::route('/'),
+            'create' => Pages\CreateFornecedor::route('/create'),
+            'edit' => Pages\EditFornecedor::route('/{record}/edit'),
         ];
     }
 }
