@@ -29,13 +29,13 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->brandName('idGestor')
-            ->brandLogo(asset('images/HorseBID-Logo1.png'))
-            ->brandLogoHeight('33px')
-            ->login()
+            ->brandLogo(asset('images/idgestor6_logo_pq.png'))
+            ->brandLogoHeight('38px')
+            ->login(Login::class)
             ->profile()
             ->sidebarCollapsibleOnDesktop()
             ->databaseNotifications()
-            ->favicon(asset('images/favicon-16x16.png'))
+            ->favicon(asset('images/favicon.png'))
             ->colors([
                 'primary' => Color::Amber,
             ])
