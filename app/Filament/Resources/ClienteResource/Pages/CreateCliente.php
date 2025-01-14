@@ -14,13 +14,12 @@ class CreateCliente extends CreateRecord
 
     protected function getCreatedNotification(): ?Notification
     {
-        #$user = \auth()->user();
         $user = Auth::user();
         return
             Notification::make()
             ->success()
-            ->title('Novo cliente')
-            ->body('O novo cliente foi cadastrado com sucesso!')
+            ->title('Novo ' . static::$resource::getModelLabel())
+            ->body('O novo ' . static::$resource::getModelLabel() . ' foi cadastrado com sucesso!')
             ->sendToDatabase($user);
     }
 

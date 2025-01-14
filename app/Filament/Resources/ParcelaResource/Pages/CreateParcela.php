@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateParcela extends CreateRecord
 {
     protected static string $resource = ParcelaResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

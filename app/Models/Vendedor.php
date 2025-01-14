@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Vendedor extends BaseModel
 {
     use UserstampTrait;
 
     protected $table = 'vendedores';
 
-    // // Atributos que serao mostrados no form show
-    // public $attrShow = [
-    //     'id' => 'ID',
-    //     'cpf_cnpj' => 'CPF/CNPJ',
-    //     'nome' => 'Nome Fantasia',
-    //     'razao_social' => 'Razão Social',
-    //     'telefone' => 'Telefone',
-    // ];
 
     protected $guarded = []; // Não precisa colocar os campos no fillable
 
@@ -31,12 +26,22 @@ class Vendedor extends BaseModel
     //     ];
     // }
 
-    public function lotes()
+    public function uf(): BelongsTo
+    {
+        return $this->belongsTo(Uf::class, 'uf_id');
+    }
+
+    public function cidade(): BelongsTo
+    {
+        return $this->belongsTo(Cidade::class, 'cidade_id');
+    }
+
+    public function lotes(): HasMany
     {
         return $this->hasMany('App\Models\Lote');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }

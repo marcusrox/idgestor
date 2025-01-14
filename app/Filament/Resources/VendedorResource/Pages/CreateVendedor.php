@@ -6,6 +6,7 @@ use App\Filament\Resources\VendedorResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Auth;
 
 class CreateVendedor extends CreateRecord
 {
@@ -13,15 +14,13 @@ class CreateVendedor extends CreateRecord
 
     protected function getCreatedNotification(): ?Notification
     {
-        $recipient = \auth()->user();
-        //dd($recipient);
+        $user = Auth::user();
         return
             Notification::make()
             ->success()
-            ->seconds(30)
-            ->title('Novo vendedor')
-            ->body('O novo vendedor foi cadastrado com sucesso!')
-            ->sendToDatabase($recipient);
+            ->title('Novo ' . static::$resource::getModelLabel())
+            ->body('O novo ' . static::$resource::getModelLabel() . ' foi cadastrado com sucesso!')
+            ->sendToDatabase($user);
     }
 
     protected function getRedirectUrl(): string

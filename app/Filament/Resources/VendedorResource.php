@@ -81,7 +81,9 @@ class VendedorResource extends Resource
                         Forms\Components\TextInput::make('cidade')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Select::make('uf')
+                        Forms\Components\Select::make('uf_id')
+                            ->searchable()
+                            ->preload()
                             ->required()
                             ->relationship('uf', 'nome'),
                         Forms\Components\TextInput::make('cep')
