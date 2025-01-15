@@ -19,8 +19,8 @@ class EditCliente extends EditRecord
         return
             Notification::make()
             ->success()
-            ->title('Editar cliente')
-            ->body('O cliente foi alterado com sucesso!')
+            ->title('Editar ' . static::$resource::getModelLabel())
+            ->body('O ' . static::$resource::getModelLabel() . ' foi alterado com sucesso!')
             ->sendToDatabase($user);
     }
 
