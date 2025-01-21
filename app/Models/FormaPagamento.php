@@ -9,10 +9,11 @@ class FormaPagamento extends BaseModel
 
     protected $guarded = []; // Não precisa colocar os campos no fillable
 
-    public function arremates()
+    public function vendas()
     {
-        return $this->hasMany('Arremate');
+        return $this->hasMany('Venda');
     }
+
 
     // public function rules()
     // {

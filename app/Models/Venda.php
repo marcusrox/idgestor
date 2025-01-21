@@ -9,6 +9,7 @@ class Venda extends BaseModel
 {
 
     protected $table = 'vendas';
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     public static function boot()
     {
@@ -35,6 +36,14 @@ class Venda extends BaseModel
         return $this->hasMany(VendaItem::class);
     }
 
+    // Accessor para somar os valores dos itens
+    public function getValorTotalAttribute()
+    {
+        return $this->items->sum(function ($item) {
+            return $item->qtd_itens * $item->preco_venda;
+        });
+    }
+
     public function cliente(): BelongsTo
     {
         return $this->belongsTo(Cliente::class);
@@ -43,5 +52,10 @@ class Venda extends BaseModel
     public function transportadora(): BelongsTo
     {
         return $this->belongsTo(Transportadora::class);
+    }
+
+    public function forma_pagamento(): BelongsTo
+    {
+        return $this->belongsTo(FormaPagamento::class);
     }
 }

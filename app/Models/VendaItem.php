@@ -12,13 +12,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class VendaItem extends Model
 {
     protected $table = 'vendas_itens';
+    protected $guarded = []; // Não precisa colocar os campos no fillable
 
     use HasFactory;
     use LogsActivity;
 
-    protected $casts = [
-        'preco_venda' => MoneyCast::class,
-    ];
+    // protected $casts = [
+    //     'preco_venda' => MoneyCast::class,
+    // ];
 
     public function venda(): BelongsTo
     {

@@ -11,7 +11,6 @@ class Vendedor extends BaseModel
 
     protected $table = 'vendedores';
 
-
     protected $guarded = []; // Não precisa colocar os campos no fillable
 
     // public function rules()

@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vendedor_id')->constrained('vendedores')->cascadeOnDelete();
-            $table->foreignId('cliente_id')->constrained('clientes')->cascadeOnDelete();
-            $table->foreignId('venda_situacao_id')->constrained('vendas_situacoes')->cascadeOnDelete();
+            $table->foreignId('vendedor_id')->constrained('vendedores');
+            $table->foreignId('cliente_id')->constrained('clientes');
+            $table->foreignId('venda_situacao_id')->constrained('vendas_situacoes');
             $table->string('observacao')->nullable();
-            $table->string('numero_pedido');
+            $table->string('numero_pedido')->nullable();
             $table->enum('tipo_frete', ['FOB', 'CIF']);
             $table->enum('natureza_operacao', ['VENDA', 'BONIF']);
-            $table->string('prazos_pagamento');
+            $table->foreignId('forma_pagamento_id')->constrained('formas_pagamento');
             $table->bigInteger('pct_comissao');
             $table->bigInteger('pct_vpc');
-            $table->foreignId('transportadora_id')->constrained('transportadoras')->cascadeOnDelete();
+            $table->foreignId('transportadora_id')->nullable()->constrained('transportadoras');
             $table->date('dt_base_faturamento');
 
             $table->timestamps();

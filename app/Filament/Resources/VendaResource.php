@@ -14,6 +14,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\Summarizers\Summarizer;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -46,7 +47,7 @@ class VendaResource extends Resource
                         modifyQueryUsing: function (Builder $query) {
                             /** @var \App\Models\User */
                             $user = Auth::user();
-                            if ($user->is_vendedor()) {
+                            if ($user->isVendedor()) {
                                 $query->where('id', $user->vendedor->id);
                             }
                         },
@@ -61,7 +62,7 @@ class VendaResource extends Resource
                         modifyQueryUsing: function (Builder $query) {
                             /** @var \App\Models\User */
                             $user = Auth::user();
-                            if ($user->is_vendedor()) {
+                            if ($user->isVendedor()) {
                                 $query->where('vendedor_id', $user->vendedor->id);
                             }
                         },
@@ -92,14 +93,18 @@ class VendaResource extends Resource
 
                         Forms\Components\TextInput::make('pct_comissao')
                             ->numeric()->maxValue(100)->label('Pct Comissão %')
-                            ->default(Config::getValue('venda.pct_comissao_default'))->required(),
+                            ->default(setting('venda.pct_comissao_default', 3))->required(),
 
                         Forms\Components\TextInput::make('pct_vpc')
                             ->numeric()->maxValue(100)->label('Pct VPC %')
-                            ->default(Config::getValue('venda.pct_vpc_default'))->required(),
+                            ->default(setting('venda.pct_vpc_default', 0))->required(),
 
-                        Forms\Components\TextInput::make('prazos_pagamento')
-                            ->label('Prazos de pagamento')->placeholder('Exemplo: 30/60/90/120')->required(),
+                        Forms\Components\Select::make('forma_pagamento_id')
+                            ->relationship('forma_pagamento', 'nome')
+                            ->required()
+                            ->searchable()
+                            ->preload(),
+
                         Forms\Components\DatePicker::make('dt_base_faturamento')
                             ->default(now())->label('Data base para faturamento')->required(),
                         Forms\Components\Select::make('transportadora_id')
@@ -117,12 +122,15 @@ class VendaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->searchable()->sortable()->label('ID'),
-                Tables\Columns\TextColumn::make('vendedor.nome')->searchable()->sortable()->label('Vendedor'),
+                //Tables\Columns\TextColumn::make('vendedor.nome')->searchable()->sortable()->label('Vendedor'),
                 Tables\Columns\TextColumn::make('cliente.nome')->searchable()->sortable()->label('Cliente'),
-                Tables\Columns\TextColumn::make('created_at')->label('Data Criação')
+                Tables\Columns\TextColumn::make('valor_total')
+                    ->label('Valor Total')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Data Compra')
                     ->dateTime('d/m/Y H:i:s')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('updated_at')->label('Atualização')
                     ->dateTime('d/m/Y H:i:s')
                     ->sortable()
