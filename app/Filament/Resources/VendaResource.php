@@ -82,10 +82,12 @@ class VendaResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('tipo_frete')
                             ->options(TipoFreteType::class)
+                            ->default(setting('venda.tipo_frete_default', 'FOB'))
                             ->label('Tipo de Frete')->required(),
 
                         Forms\Components\Select::make('natureza_operacao')
                             ->options(NaturezaOperacaoType::class)
+                            ->default(setting('venda.natureza_operacao_default', 'VENDA'))
                             ->label('Natureza da Operação')->required(),
 
                         Forms\Components\TextInput::make('numero_pedido')
@@ -93,11 +95,13 @@ class VendaResource extends Resource
 
                         Forms\Components\TextInput::make('pct_comissao')
                             ->numeric()->maxValue(100)->label('Pct Comissão %')
-                            ->default(setting('venda.pct_comissao_default', 3))->required(),
+                            ->default(setting('venda.pct_comissao_default', 3))
+                            ->required(),
 
                         Forms\Components\TextInput::make('pct_vpc')
                             ->numeric()->maxValue(100)->label('Pct VPC %')
-                            ->default(setting('venda.pct_vpc_default', 0))->required(),
+                            ->default(setting('venda.pct_vpc_default', 0))
+                            ->required(),
 
                         Forms\Components\Select::make('forma_pagamento_id')
                             ->relationship('forma_pagamento', 'nome')
@@ -106,11 +110,14 @@ class VendaResource extends Resource
                             ->preload(),
 
                         Forms\Components\DatePicker::make('dt_base_faturamento')
-                            ->default(now())->label('Data base para faturamento')->required(),
+                            ->default(now())->label('Data base para faturamento')
+                            ->required(),
+
                         Forms\Components\Select::make('transportadora_id')
                             ->relationship('transportadora', 'nome')
                             ->searchable()
                             ->preload(),
+
                         Forms\Components\Textarea::make('observacao')
                             ->label('Observação'),
                     ]),
@@ -125,6 +132,7 @@ class VendaResource extends Resource
                 //Tables\Columns\TextColumn::make('vendedor.nome')->searchable()->sortable()->label('Vendedor'),
                 Tables\Columns\TextColumn::make('cliente.nome')->searchable()->sortable()->label('Cliente'),
                 Tables\Columns\TextColumn::make('valor_total')
+                    ->money('BRL')
                     ->label('Valor Total')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')->label('Data Compra')

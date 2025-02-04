@@ -40,7 +40,7 @@ class ItensRelationManager extends RelationManager
                     ->prefix('R$')
                     ->required()
                     ->minValue(0)
-                    ->maxValue(999999),
+                    ->maxValue(9999999),
             ]);
     }
 
@@ -50,8 +50,11 @@ class ItensRelationManager extends RelationManager
             ->recordTitleAttribute('nome')
             ->columns([
                 Tables\Columns\TextColumn::make('produto.nome'),
-                Tables\Columns\TextColumn::make('qtd_itens')->numeric(),
-                Tables\Columns\TextColumn::make('preco_venda')->numeric(),
+                Tables\Columns\TextColumn::make('qtd_itens')
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('preco_venda')
+                    ->label('Preço de Venda')
+                    ->money('BRL'),
             ])
             ->filters([
                 //

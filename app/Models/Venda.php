@@ -39,7 +39,7 @@ class Venda extends BaseModel
     // Accessor para somar os valores dos itens
     public function getValorTotalAttribute()
     {
-        return $this->items->sum(function ($item) {
+        return $this->itens->sum(function ($item) {
             return $item->qtd_itens * $item->preco_venda;
         });
     }

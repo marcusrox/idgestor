@@ -7,9 +7,12 @@ namespace App\Models;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+
+use function PHPUnit\Framework\isEmpty;
 
 class User extends Authenticatable
 {
@@ -84,12 +87,24 @@ class User extends Authenticatable
 
     public function isCliente()
     {
-        return $this->hasRole('Cliente');
+        return !is_null($this->cliente);
+        //return $this->hasRole('Cliente');
     }
 
     public function isVendedor()
     {
-        return $this->hasRole('Vendedor');
+        return !is_null($this->vendedor);
+        //return $this->hasRole('Vendedor');
+    }
+
+    public function cliente(): HasOne
+    {
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function vendedor(): HasOne
+    {
+        return $this->hasOne(Vendedor::class);
     }
 
     public function isAdmin()

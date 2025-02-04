@@ -37,6 +37,10 @@ class Settings extends BaseSettings
                                 ->suffix('%')
                                 ->numeric()
                                 ->required(),
+                            TextInput::make('venda.tipo_frete_default')
+                                ->required(),
+                            TextInput::make('venda.natureza_operacao_default')
+                                ->required(),
                         ]),
                     Tabs\Tab::make('Seo')
                         ->schema([

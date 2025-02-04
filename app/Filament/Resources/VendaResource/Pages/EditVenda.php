@@ -20,7 +20,7 @@ class EditVenda extends EditRecord
         return
             Notification::make()
             ->success()
-            ->title('Editar venda')
+            ->title('Editar venda #' . $this->record->id)
             ->body('A venda foi alterada com sucesso!')
             ->sendToDatabase($user);
     }

@@ -18,7 +18,7 @@ class CreateVenda extends CreateRecord
         return
             Notification::make()
             ->success()
-            ->title('Nova ' . static::$resource::getModelLabel())
+            ->title('Nova ' . static::$resource::getModelLabel() . ' #' . $this->record->id)
             ->body('O nova ' . static::$resource::getModelLabel() . ' foi cadastrada com sucesso!')
             ->sendToDatabase($user);
     }
